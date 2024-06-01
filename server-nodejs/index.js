@@ -45,5 +45,18 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/users", async (req, res) => {
+  try {
+    const r = await axios.get(
+      "https://api.chatengine.io/users/",
+      { headers: { "Private-Key": CHAT_ENGINE_PRIVATE_KEY } }
+    );
+    return res.status(r.status).json(r.data);
+  } catch (e) {
+    return res.status(e.response.status).json(e.response.data);
+  }
+});
+
+
 // vvv On port 3001!
 app.listen(3001);
